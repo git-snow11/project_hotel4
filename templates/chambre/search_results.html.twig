@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Available Rooms{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>Available Rooms</h2>
+            <p>
+                <strong>Check-in:</strong> {{ check_in }} | 
+                <strong>Check-out:</strong> {{ check_out }} | 
+                <strong>Guests:</strong> {{ guests }}
+                {% if room_type %}
+                    | <strong>Type:</strong> {{ room_type|capitalize }}
+                {% endif %}
+            </p>
+            <a href="{{ path('app_home') }}" class="btn btn-secondary">← Modify Search</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% if rooms|length > 0 %}
+            {% for room in rooms %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Room {{ room.chambreNumero }}</h5>
+                            <p class="card-text">
+                                <span class="badge bg-info">{{ room.chambreType|capitalize }}</span><br>
+                                <strong>Capacity:</strong> {{ room.capacite }} guests<br>
+                                <strong>Price per night:</strong> {{ room.prix|number_format(2, '.', ',') }} MAD<br>
+                                <strong>Total ({{ nights }} nights):</strong> 
+                                <span class="text-primary fw-bold">{{ (room.prix * nights)|number_format(2, '.', ',') }} MAD</span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ path('room_booking', {
+                                'id': room.id, 
+                                'check_in': check_in, 
+                                'check_out': check_out,
+                                'guests': guests
+                            }) }}" class="btn btn-primary w-100">
+                                Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12">
+                <div class="alert alert-warning text-center">
+                    <h4>😔 No Rooms Available</h4>
+                    <p>Sorry, no rooms match your criteria for the selected dates.</p>
+                    <a href="{{ path('app_home') }}" class="btn btn-primary mt-3">← New Search</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

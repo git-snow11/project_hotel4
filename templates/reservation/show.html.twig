@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Details{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1>Reservation Details</h1>
+            <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary">← Back to list</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th style="width: 40%;">ID</th>
+                        <td>{{ reservation.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Reservation Code</th>
+                        <td><code>{{ reservation.idReservation }}</code></td>
+                    </tr>
+                    <tr>
+                        <th>Customer</th>
+                        <td>
+                            {{ reservation.user.prenom }} {{ reservation.user.nom }}<br>
+                            <small class="text-muted">{{ reservation.user.email }}</small><br>
+                            <small class="text-muted">{{ reservation.user.telephone }}</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Room</th>
+                        <td>
+                            Room {{ reservation.chambre.chambreNumero }}<br>
+                            <span class="badge bg-info">{{ reservation.chambre.chambreType|capitalize }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Check-in Date</th>
+                        <td>{{ reservation.dateDebut|date('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Check-out Date</th>
+                        <td>{{ reservation.dateFin|date('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Duration</th>
+                        <td>{{ reservation.dateDebut.diff(reservation.dateFin).days }} nights</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            {% if reservation.status == 'confirmée' %}
+                                <span class="badge bg-success">Confirmed</span>
+                            {% elseif reservation.status == 'en cours' %}
+                                <span class="badge bg-primary">In Progress</span>
+                            {% elseif reservation.status == 'terminée' %}
+                                <span class="badge bg-secondary">Completed</span>
+                            {% elseif reservation.status == 'annulée' %}
+                                <span class="badge bg-danger">Cancelled</span>
+                            {% else %}
+                                <span class="badge bg-warning">Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-4">
+                <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-warning">Edit</a>
+                {{ include('reservation/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

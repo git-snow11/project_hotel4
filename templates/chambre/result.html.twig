@@ -1,0 +1,24 @@
+<h1>Available Rooms</h1>
+
+<div class="row">
+  {% for room in rooms %}
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>{{ room.name }}</h5>
+          <p>{{ room.price }} € / night</p>
+
+          <a href="{{ path('room_book', {
+            id: room.id,
+            checkin: checkin|date('Y-m-d'),
+            checkout: checkout|date('Y-m-d')
+          }) }}" class="btn btn-primary">
+            Book
+          </a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p>No rooms available.</p>
+  {% endfor %}
+</div>

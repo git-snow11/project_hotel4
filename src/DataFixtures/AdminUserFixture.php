@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AdminUserFixture extends Fixture
+class AdminUserFixture extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -25,10 +26,16 @@ class AdminUserFixture extends Fixture
         $user->setTelephone('0000000000');
         $user->setRoles(['ROLE_ADMIN','ROLE_USER']);
 
-        // Hash the password
         $user->setPassword($this->hasher->hashPassword($user, 'admin123'));
 
         $manager->persist($user);
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            AppFixtures::class,  // Run AFTER AppFixtures
+        ];
     }
 }

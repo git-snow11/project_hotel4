@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm Booking{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Confirm Your Booking</h3>
+                </div>
+                <div class="card-body">
+                    <h5>Room Details</h5>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Room Number:</th>
+                            <td>{{ room.chambreNumero }}</td>
+                        </tr>
+                        <tr>
+                            <th>Room Type:</th>
+                            <td><span class="badge bg-info">{{ room.chambreType|capitalize }}</span></td>
+                        </tr>
+                        <tr>
+                            <th>Capacity:</th>
+                            <td>{{ room.capacite }} guests</td>
+                        </tr>
+                    </table>
+                    
+                    <hr>
+                    
+                    <h5>Booking Details</h5>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Check-in:</th>
+                            <td>{{ check_in }}</td>
+                        </tr>
+                        <tr>
+                            <th>Check-out:</th>
+                            <td>{{ check_out }}</td>
+                        </tr>
+                        <tr>
+                            <th>Guests:</th>
+                            <td>{{ guests }}</td>
+                        </tr>
+                        <tr>
+                            <th>Number of Nights:</th>
+                            <td>{{ nights }}</td>
+                        </tr>
+                        <tr>
+                            <th>Price per Night:</th>
+                            <td>{{ room.prix|number_format(2, '.', ',') }} MAD</td>
+                        </tr>
+                    </table>
+                    
+                    <hr>
+                    
+                    <h5>Your Contact Information</h5>
+                    <p class="text-muted mb-3">Please verify your contact details:</p>
+                    
+                    <form method="POST" action="{{ path('booking_confirm') }}">
+                        <input type="hidden" name="room_id" value="{{ room.id }}">
+                        <input type="hidden" name="check_in" value="{{ check_in }}">
+                        <input type="hidden" name="check_out" value="{{ check_out }}">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="prenom" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" value="{{ app.user.prenom }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nom" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" id="nom" name="nom" value="{{ app.user.nom }}" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ app.user.email }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="telephone" class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" id="telephone" name="telephone" value="{{ app.user.telephone }}" required>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="alert alert-success">
+                            <h4 class="mb-0">Total Price: {{ total_price|number_format(2, '.', ',') }} MAD</h4>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">Confirm Booking</button>
+                            <a href="{{ path('search_rooms', {
+                                'check_in': check_in,
+                                'check_out': check_out,
+                                'guests': guests
+                            }) }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

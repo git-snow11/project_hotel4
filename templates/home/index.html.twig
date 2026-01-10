@@ -2,8 +2,102 @@
 
 
 
+
 {% block body %}
 
 
+<div class="hero-content">
+    
+
+ <div class="container">
+        <div class="card custom-bg p-4 d-flex search-card">
+            <div class="row">
+                <div class="pb-3 h3 text-left">Room booking &#x1F3E8;</div>
+            </div>
+            <form action="{{ path('search_rooms') }}" method="GET">
+            
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    <div class="form-group col-md align-items-start flex-column">
+                        <label for="checkin-date" class=" d-inline-flex">Check-in</label>
+                        <input type="date" class="form-control" id="checkin-date" name="check_in"
+                            onkeydown="return false" required>
+                    </div>
+                    <div class="form-group col-md align-items-start flex-column">
+                        <label for="checkout-date" class=" d-inline-flex">Check-out</label>
+                        <input type="date" class="form-control" id="checkout-date" name="check_out"
+                            onkeydown="return false" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md align-items-start flex-column">
+                        <label for="guests" class="d-inline-flex col-auto">Guests</label>
+                        <select class="form-select" id="guests" name="guests"
+                            onchange="javascript: dynamicDropdown(this.options[this.selectedIndex].value);">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md align-items-start flex-column">
+                        <label for="rooms" class="d-inline-flex col-auto">Rooms</label>
+                        <select class="form-select" id="rooms" name="room_type">
+                            <option value="Simple">Simple</option>
+                            <option value="Double">Double</option>
+                            <option value="Suite">Suite</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-left col-auto">
+                        <button type="submit" class="btn btn-primary">See available rooms</button>
+                    </div>
+                    <div id="error" class="error text-danger"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid p-0">
+  <img src="https://i.pinimg.com/1200x/16/a8/e3/16a8e31259241333d9a7b245ecb102d0.jpg" class="img-fluid w-100" alt="Full-width image">
+</div>
 
 {% endblock %}

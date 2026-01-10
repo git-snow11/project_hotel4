@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Invoice Details{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1>Invoice Details</h1>
+            <a href="{{ path('app_facturation_index') }}" class="btn btn-secondary">← Back to list</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Invoice #{{ facturation.id }}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th style="width: 40%;">Invoice ID</th>
+                                <td>{{ facturation.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Invoice Date</th>
+                                <td>{{ facturation.dateFacture|date('d/m/Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Reservation Code</th>
+                                <td><code>{{ facturation.reservation.idReservation }}</code></td>
+                            </tr>
+                            <tr>
+                                <th>Customer</th>
+                                <td>
+                                    <strong>{{ facturation.reservation.user.prenom }} {{ facturation.reservation.user.nom }}</strong><br>
+                                    <small class="text-muted">{{ facturation.reservation.user.email }}</small><br>
+                                    <small class="text-muted">{{ facturation.reservation.user.telephone }}</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Room</th>
+                                <td>
+                                    Room {{ facturation.reservation.chambre.chambreNumero }}<br>
+                                    <span class="badge bg-info">{{ facturation.reservation.chambre.chambreType|capitalize }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Check-in</th>
+                                <td>{{ facturation.reservation.dateDebut|date('d/m/Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Check-out</th>
+                                <td>{{ facturation.reservation.dateFin|date('d/m/Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nights</th>
+                                <td>{{ facturation.reservation.dateDebut.diff(facturation.reservation.dateFin).days }}</td>
+                            </tr>
+                            <tr class="table-success">
+                                <th>Total Amount</th>
+                                <td><h4 class="mb-0">{{ facturation.montant|number_format(2, '.', ',') }} MAD</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="{{ path('app_facturation_edit', {'id': facturation.id}) }}" class="btn btn-warning">Edit</a>
+                {{ include('facturation/_delete_form.html.twig') }}
+                <a href="#" class="btn btn-success" onclick="window.print(); return false;">
+                    <i class="fa fa-print"></i> Print Invoice
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

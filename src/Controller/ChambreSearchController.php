@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Controller;
+
+use App\Repository\ChambreRepository;
+use App\Repository\ReservationRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class ChambreSearchController extends AbstractController
+{
+    #[Route('/chambre/search', name: 'app_chambre_search')]
+    public function index(): Response
+    {
+        return $this->render('chambre_search/search_results.html.twig', [
+            'controller_name' => 'ChambreSearchController',
+        ]);
+    }
+    
+    
+    #[Route('/search-rooms', name: 'search_rooms', methods: ['GET'])]
+    public function searchRooms(
+        Request $request, 
+        ChambreRepository $chambreRepository,
+        ReservationRepository $reservationRepository
+    ): Response
+    {
+        // Get search parameters
+        $checkIn = $request->query->get('check_in');
+        $checkOut = $request->query->get('check_out');
+        $guests = (int) $request->query->get('guests', 1);
+        $roomType = $request->query->get('room_type');
+        
+        // Validate dates
+        if (!$checkIn || !$checkOut) {
+            $this->addFlash('error', 'Please select check-in and check-out dates.');
+            return $this->redirectToRoute('app_home');
+        }
+        
+        // Convert dates to DateTime
+        try {
+            $dateDebut = new \DateTime($checkIn);
+            $dateFin = new \DateTime($checkOut);
+            
+            if ($dateFin <= $dateDebut) {
+                $this->addFlash('error', 'Check-out date must be after check-in date.');
+                return $this->redirectToRoute('app_home');
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Invalid date format.');
+            return $this->redirectToRoute('app_home');
+        }
+        
+        // Find all active rooms that match criteria
+        $queryBuilder = $chambreRepository->createQueryBuilder('c')
+            ->where('c.is_active = :active')
+            ->andWhere('c.capacite >= :guests')
+            ->setParameter('active', true)
+            ->setParameter('guests', $guests);
+        
+        // Add room type filter if specified
+        if ($roomType) {
+            $queryBuilder->andWhere('c.chambre_type = :type')
+                ->setParameter('type', $roomType);
+        }
+        
+        $allRooms = $queryBuilder->getQuery()->getResult();
+        
+        // Filter out rooms that are already booked for these dates
+        $availableRooms = [];
+        foreach ($allRooms as $room) {
+            if ($this->isRoomAvailable($room, $dateDebut, $dateFin, $reservationRepository)) {
+                $availableRooms[] = $room;
+            }
+        }
+        
+        // Calculate number of nights
+        $nights = $dateDebut->diff($dateFin)->days;
+        
+        return $this->render('chambre_search/search_results.html.twig', [
+            'rooms' => $availableRooms,
+            'check_in' => $checkIn,
+            'check_out' => $checkOut,
+            'guests' => $guests,
+            'room_type' => $roomType,
+            'nights' => $nights,
+        ]);
+    }
+    
+    private function isRoomAvailable(
+        $room, 
+        \DateTime $checkIn, 
+        \DateTime $checkOut, 
+        ReservationRepository $reservationRepository
+    ): bool
+    {
+        $overlappingReservations = $reservationRepository->createQueryBuilder('r')
+            ->where('r.chambre = :room')
+            ->andWhere('r.status != :cancelled')
+            ->andWhere(
+                '(r.date_debut < :checkOut AND r.date_fin > :checkIn)'
+            )
+            ->setParameter('room', $room)
+            ->setParameter('cancelled', 'annulée')
+            ->setParameter('checkIn', $checkIn)
+            ->setParameter('checkOut', $checkOut)
+            ->getQuery()
+            ->getResult();
+        
+        return count($overlappingReservations) === 0;
+    }
+}

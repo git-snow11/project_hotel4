@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Booking Confirmed{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="alert alert-success text-center">
+                <h1>✅ Booking Confirmed!</h1>
+                <p class="lead">Your reservation has been successfully created.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Reservation Details</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Reservation Code:</strong> <code>{{ reservation.idReservation }}</code></p>
+                    <p><strong>Room:</strong> {{ reservation.chambre.chambreNumero }} ({{ reservation.chambre.chambreType|capitalize }})</p>
+                    <p><strong>Check-in:</strong> {{ reservation.dateDebut|date('d/m/Y') }}</p>
+                    <p><strong>Check-out:</strong> {{ reservation.dateFin|date('d/m/Y') }}</p>
+                    <p><strong>Status:</strong> <span class="badge bg-success">{{ reservation.status|capitalize }}</span></p>
+                    
+                    <hr>
+                    
+                    <p class="text-muted">A confirmation email has been sent to {{ app.user.email }}</p>
+                    
+                    <div class="d-grid gap-2 mt-4">
+    <a href="{{ path('booking_invoice', {'id': reservation.id}) }}" class="btn btn-success btn-lg">
+        📄 View Invoice
+    </a>
+    <a href="{{ path('app_home') }}" class="btn btn-primary">
+        Back to Home
+    </a>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
