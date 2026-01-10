@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Amenities{% endblock %}
+
+{% block body %}
+<div class="container mt-5 pt-5">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-md-10 mx-auto text-center">
+            <h1 class="display-2 mb-3">Amenities</h1>
+            <p class="lead fs-4 text-muted">Everything you need for a perfect stay</p>
+        </div>
+    </div>
+
+    <!-- Main Amenities with Images -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="https://i.pinimg.com/474x/47/2a/dd/472add28786aa328599861a37a1371ab.jpg" 
+                     class="card-img-top" 
+                     alt="Pool" 
+                     style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Swimming Pool</h4>
+                    <p class="text-muted">Outdoor heated pool open year-round with poolside service</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="https://i.pinimg.com/1200x/81/78/74/8178745347f6c499cee9c845e7610c3d.jpg" 
+                     class="card-img-top" 
+                     alt="Gym" 
+                     style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Fitness Center</h4>
+                    <p class="text-muted">24/7 access to modern equipment and personal trainers</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="https://i.pinimg.com/1200x/13/43/f9/1343f9a195cbdc2e437c0f833f460866.jpg" 
+                     class="card-img-top" 
+                     alt="Restaurant" 
+                     style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Restaurant</h4>
+                    <p class="text-muted">International cuisine and local specialties served daily</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <img src="https://i.pinimg.com/1200x/11/5b/a6/115ba6051aa494cb9003809266a3ed85.jpg" 
+                     class="card-img-top" 
+                     alt="Spa" 
+                     style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h4 class="card-title">Spa & Wellness</h4>
+                    <p class="text-muted">Full-service spa with massages, sauna, and treatments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Services Grid -->
+    <div class="row g-3 mb-5">
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">📶</div>
+                <h6 class="mb-0">Free WiFi</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">🅿️</div>
+                <h6 class="mb-0">Free Parking</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">🛎️</div>
+                <h6 class="mb-0">Room Service</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">🏢</div>
+                <h6 class="mb-0">Meeting Rooms</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">🎩</div>
+                <h6 class="mb-0">Concierge</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">👔</div>
+                <h6 class="mb-0">Laundry</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">🍳</div>
+                <h6 class="mb-0">Breakfast</h6>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="text-center p-4 bg-light rounded">
+                <div class="fs-1 mb-2">❄️</div>
+                <h6 class="mb-0">AC Rooms</h6>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center py-5">
+        <h3 class="mb-3">Ready to book?</h3>
+        <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg px-5">Search Rooms</a>
+    </div>
+</div>
+{% endblock %}

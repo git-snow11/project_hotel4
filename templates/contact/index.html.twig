@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block body %}
+<div class="container mt-5 pt-5">
+    <!-- Header -->
+    <div class="row mb-5">
+        <div class="col-md-10 mx-auto text-center">
+            <h1 class="display-2 mb-3">Contact Us</h1>
+            <p class="lead fs-4 text-muted">Get in touch with Hotel Transylvania</p>
+        </div>
+    </div>
+
+    <!-- Contact Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 text-center">
+                <div class="card-body p-5">
+                    <div class="fs-1 mb-3">📞</div>
+                    <h4 class="mb-3">Phone</h4>
+                    <p class="text-muted mb-2">Call us anytime</p>
+                    <a href="tel:+212522123456" class="h5 text-decoration-none">+212 522 123 456</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 text-center">
+                <div class="card-body p-5">
+                    <div class="fs-1 mb-3">📧</div>
+                    <h4 class="mb-3">Email</h4>
+                    <p class="text-muted mb-2">Send us a message</p>
+                    <a href="mailto:info@hoteltransylvania.com" class="h5 text-decoration-none">info@hoteltransylvania.com</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 text-center">
+                <div class="card-body p-5">
+                    <div class="fs-1 mb-3">📍</div>
+                    <h4 class="mb-3">Location</h4>
+                    <p class="text-muted mb-2">Visit us at</p>
+                    <p class="h6">123 Hotel Street<br>Casablanca, Morocco</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="row mb-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h3 class="mb-4 text-center">Reception & Services</h3>
+                    
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <div class="fs-2 mb-2">🕐</div>
+                            <h6>Reception</h6>
+                            <p class="text-muted mb-0">24/7 Available</p>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="fs-2 mb-2">🏨</div>
+                            <h6>Check-in</h6>
+                            <p class="text-muted mb-0">2:00 PM</p>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="fs-2 mb-2">🚪</div>
+                            <h6>Check-out</h6>
+                            <p class="text-muted mb-0">12:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106377.3081652922!2d-7.68160935!3d33.5731104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cd4778aa113b%3A0xb06c1d84f310fd3!2sCasablanca%2C%20Morocco!5e0!3m2!1sen!2s!4v1234567890"
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center py-5 bg-light rounded mb-5">
+        <h3 class="mb-3">Ready to book your stay?</h3>
+        <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg px-5">Book Now</a>
+    </div>
+</div>
+{% endblock %}

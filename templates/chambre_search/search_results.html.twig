@@ -29,18 +29,16 @@
                             <p class="card-text">
                                 <strong>Type:</strong> {{ room.chambreType|capitalize }}<br>
                                 <strong>Capacity:</strong> {{ room.capacite }} guests<br>
-                                <strong>Price:</strong> {{ room.prix }}€ / night
+                                <strong>Price:</strong> {{ room.prix }}MAD / night
                             </p>
-                           <a href="{{ path('room_booking', {
-    'id': room.id, 
-    'check_in': check_in, 
-    'check_out': check_out,
-    'guests': guests
-}) }}" class="btn btn-primary w-100">
-    Book Now
-</a>
-    Book now
-</a>
+                            <a href="{{ path('room_booking', {
+                                'id': room.id, 
+                                'check_in': check_in, 
+                                'check_out': check_out,
+                                'guests': guests
+                            }) }}" class="btn btn-primary w-100">
+                                Book Now
+                            </a>
                         </div>
                     </div>
                 </div>

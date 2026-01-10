@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 {% block title %}New Reservation{% endblock %}
 
 {% block body %}
-    <h1>Create new Reservation</h1>
-
-    {{ include('reservation/_form.html.twig') }}
-
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Create New Reservation</h3>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg">Create Reservation</button>
+                        <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

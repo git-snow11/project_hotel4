@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Chambre{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Create New Room{% endblock %}
 
 {% block body %}
-    <h1>Create new Chambre</h1>
-
-    {{ include('chambre/_form.html.twig') }}
-
-    <a href="{{ path('app_chambre_index') }}">back to list</a>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Create New Room</h3>
+                </div>
+                <div class="card-body p-4">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg">Create Room</button>
+                        <a href="{{ path('app_chambre_index') }}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
