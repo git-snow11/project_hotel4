@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
             $this->addReference(self::USER_REFERENCE . $i, $client);
         }
         
-        $manager->flush(); // Flush users
+        $manager->flush(); 
         
         // Create Chambres
         $typesChambres = ['simple', 'double', 'suite'];
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
             $this->addReference(self::RESERVATION_REFERENCE . $i, $reservation);
         }
         
-        $manager->flush(); // Flush reservations
+        $manager->flush(); 
         
         // Create Facturations
         for($i = 1; $i <= 40; $i++){
