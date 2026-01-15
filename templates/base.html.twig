@@ -32,6 +32,14 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
+        
+        {# Dashboard link - Only visible to admins #}
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('admin') }}">Dashboard</a>
+        </li>
+        {% endif %}
+        
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_amenities') }}">Amenities</a>
         </li>
@@ -53,24 +61,6 @@
     </div>
   </div>
 </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
