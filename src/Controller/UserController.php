@@ -21,7 +21,7 @@ final class UserController extends AbstractController
     {
         $users = $entityManager->getRepository(User::class)->findAll();
         
-        return $this->render('user/list.html.twig', [  // Changed from admin/user_list.html.twig
+        return $this->render('user/list.html.twig', [  
             'users' => $users,
         ]);
     }
@@ -45,13 +45,13 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_user_list');
         }
 
-        return $this->render('user/new.html.twig');  // Changed
+        return $this->render('user/new.html.twig');  
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [  // Changed
+        return $this->render('user/show.html.twig', [  
             'user' => $user,
         ]);
     }

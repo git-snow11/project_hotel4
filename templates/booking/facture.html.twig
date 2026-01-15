@@ -8,7 +8,7 @@
         <div class="col-md-10 mx-auto">
             <div class="card">
                 <div class="card-header bg-success text-white">
-                    <h2 class="mb-0">🎉 Facture - Invoice</h2>
+                    <h2 class="mb-0"> Invoice</h2>
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">
@@ -77,16 +77,14 @@
                             </tr>
                         </tfoot>
                     </table>
-                    
-                    <div class="alert alert-info mt-4">
-                        <strong>Statut du Paiement:</strong> En attente<br>
-                        <small>Veuillez effectuer le paiement à votre arrivée à l'hôtel.</small>
+                    <div class="alert alert-info mt-4" style="color: black;">
+                         <strong>Statut du Paiement:</strong> En attente<br>
+                         <small>Veuillez effectuer le paiement à votre arrivée à l'hôtel.</small>
                     </div>
-                    
-                    <div class="alert alert-success mt-3">
-                        <strong>Statut de la Réservation:</strong> <span class="badge bg-success">{{ reservation.status|capitalize }}</span>
-                    </div>
-                    
+
+                   <div class="alert alert-success mt-3" style="color: black;">
+                   <strong>Statut de la Réservation:</strong> <span class="badge bg-success">{{ reservation.status|capitalize }}</span>
+                  </div>
                     <hr>
                     
                     <div class="row mt-4">

@@ -11,15 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ChambreSearchController extends AbstractController
 {
-    #[Route('/chambre/search', name: 'app_chambre_search')]
-    public function index(): Response
-    {
-        return $this->render('chambre_search/search_results.html.twig', [
-            'controller_name' => 'ChambreSearchController',
-        ]);
-    }
-    
-    
+
     #[Route('/search-rooms', name: 'search_rooms', methods: ['GET'])]
     public function searchRooms(
         Request $request, 
@@ -27,19 +19,19 @@ class ChambreSearchController extends AbstractController
         ReservationRepository $reservationRepository
     ): Response
     {
-        // Get search parameters
+        
         $checkIn = $request->query->get('check_in');
         $checkOut = $request->query->get('check_out');
         $guests = (int) $request->query->get('guests', 1);
         $roomType = $request->query->get('room_type');
         
-        // Validate dates
+        
         if (!$checkIn || !$checkOut) {
             $this->addFlash('error', 'Please select check-in and check-out dates.');
             return $this->redirectToRoute('app_home');
         }
         
-        // Convert dates to DateTime
+        
         try {
             $dateDebut = new \DateTime($checkIn);
             $dateFin = new \DateTime($checkOut);
@@ -53,14 +45,14 @@ class ChambreSearchController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         
-        // Find all active rooms that match criteria
+       
         $queryBuilder = $chambreRepository->createQueryBuilder('c')
             ->where('c.is_active = :active')
             ->andWhere('c.capacite >= :guests')
             ->setParameter('active', true)
             ->setParameter('guests', $guests);
         
-        // Add room type filter if specified
+       
         if ($roomType) {
             $queryBuilder->andWhere('c.chambre_type = :type')
                 ->setParameter('type', $roomType);
@@ -68,7 +60,7 @@ class ChambreSearchController extends AbstractController
         
         $allRooms = $queryBuilder->getQuery()->getResult();
         
-        // Filter out rooms that are already booked for these dates
+        
         $availableRooms = [];
         foreach ($allRooms as $room) {
             if ($this->isRoomAvailable($room, $dateDebut, $dateFin, $reservationRepository)) {
@@ -76,7 +68,7 @@ class ChambreSearchController extends AbstractController
             }
         }
         
-        // Calculate number of nights
+       
         $nights = $dateDebut->diff($dateFin)->days;
         
         return $this->render('chambre_search/search_results.html.twig', [

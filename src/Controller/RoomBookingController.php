@@ -57,13 +57,13 @@ class RoomBookingController extends AbstractController
         $chambre = $chambreRepository->find($roomId);
         $user = $this->getUser();
         
-        // Update user info if provided
+        
         $user->setPrenom($request->request->get('prenom'))
             ->setNom($request->request->get('nom'))
             ->setEmail($request->request->get('email'))
             ->setTelephone($request->request->get('telephone'));
         
-        // Create reservation
+       
         $reservation = new Reservation();
         $reservation->setIdReservation('RES-' . date('Ymd') . '-' . uniqid())
             ->setDateDebut(new \DateTime($checkIn))
@@ -74,7 +74,7 @@ class RoomBookingController extends AbstractController
         
         $manager->persist($reservation);
         
-        // Create invoice (Facturation)
+        
         $dateDebut = new \DateTime($checkIn);
         $dateFin = new \DateTime($checkOut);
         $nights = $dateDebut->diff($dateFin)->days;
@@ -110,17 +110,17 @@ class RoomBookingController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function showInvoice(Reservation $reservation, EntityManagerInterface $manager): Response
     {
-        // Make sure user can only see their own invoices
+        
         if ($reservation->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
         
-        // Get the facturation for this reservation
+        
         $facturation = $manager->getRepository(Facturation::class)
             ->findOneBy(['reservation' => $reservation]);
         
         if (!$facturation) {
-            // If no invoice exists yet, create one
+           
             $dateDebut = $reservation->getDateDebut();
             $dateFin = $reservation->getDateFin();
             $nights = $dateDebut->diff($dateFin)->days;
