@@ -35,8 +35,7 @@ security:
             # switch_user: true
 
     # Note: Only the *first* matching rule is applied
-    access_control:
-        - { path: ^/welcome/page, roles: PUBLIC_ACCESS }  
+    access_control: 
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
